@@ -77,7 +77,16 @@
                 opacity: 0;
             }
         }
-    <script>
+    </style>
+</head>
+<body>
+
+    <h1 id="question">Will you be my Valentine? 💕</h1>
+
+    <button id="yesBtn">Yes 💘</button>
+    <button id="noBtn">No 😢</button>
+
+<script>
     let yesBtn = document.getElementById("yesBtn");
     let noBtn = document.getElementById("noBtn");
     let question = document.getElementById("question");
@@ -87,10 +96,9 @@
     let yesClickCount = 0;
     let totalNoClicks = 0;
     let angryStage = 0;
-    let isTryAgainMode = false;
 
     function resetGame() {
-        question.innerText = "Will you be my Valentine? 💖";
+        question.innerText = "Will you be my Valentine? 💕";
         yesBtn.innerText = "Yes 💘";
         noBtn.innerText = "No 😢";
         yesSize = 1.2;
@@ -98,7 +106,6 @@
         yesClickCount = 0;
         totalNoClicks = 0;
         angryStage = 0;
-        isTryAgainMode = false;
         yesBtn.style.fontSize = yesSize + "rem";
         noBtn.style.fontSize = noSize + "rem";
         noBtn.style.position = "static";
@@ -106,34 +113,24 @@
 
     yesBtn.addEventListener("click", function() {
 
-        if (isTryAgainMode) {
-            resetGame();
-            return;
-        }
-
         yesClickCount++;
 
         if (yesClickCount === 1) {
-            question.innerText = "Do you really mean it? 🥺💖";
+            question.innerText = "Do you really mean it? 🥺💕";
             return;
         }
 
         if (yesClickCount === 2) {
-            document.body.innerHTML = "<h1 style='margin-top:100px;color:#d63384;'>I love you my love 🥰💖🥰💖</h1>";
+            document.body.innerHTML = "<h1 style='margin-top:100px;color:#d63384;'>I love you my love 🥰💕🥰💕</h1>";
             startHeartRain();
         }
     });
 
     noBtn.addEventListener("click", function() {
 
-        if (isTryAgainMode) {
-            resetGame();
-            return;
-        }
-
         totalNoClicks++;
 
-        // Angry escalation after 10 clicks
+        // After 10 total no clicks → angry progression
         if (totalNoClicks >= 10) {
             angryStage++;
 
@@ -147,11 +144,12 @@
         }
 
         // 20% emotional twist (only before angry stage)
-        if (totalNoClicks < 10 && Math.random() < 0.2) {
+        if (totalNoClicks < 10 && Math.random() < 0.05) {
             question.innerText = "you dont love me 😭";
             yesBtn.innerText = "Try Again";
             noBtn.innerText = "Try Again";
-            isTryAgainMode = true;
+            yesBtn.onclick = resetGame;
+            noBtn.onclick = resetGame;
             return;
         }
 
@@ -171,6 +169,19 @@
         noBtn.style.top = randomY + "px";
     });
 
+    function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (20 + Math.random() * 30) + "px";
+        heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createFloatingHeart, 500);
+
     function startHeartRain() {
         setInterval(() => {
             const rainHeart = document.createElement("div");
@@ -181,8 +192,8 @@
             setTimeout(() => rainHeart.remove(), 3000);
         }, 150);
     }
-</script>
 
+</script>
 
 </body>
 </html>
