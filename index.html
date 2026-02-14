@@ -7,12 +7,14 @@
             text-align: center;
             font-family: Arial, sans-serif;
             background-color: #ffe6f0;
-            margin-top: 100px;
+            margin: 0;
+            overflow: hidden;
         }
 
         h1 {
             font-size: 3rem;
             color: #d63384;
+            margin-top: 100px;
         }
 
         button {
@@ -34,48 +36,108 @@
             background-color: #6c757d;
             color: white;
         }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 0.8;
+            }
+            to {
+                transform: translateY(-110vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Will you be my Valentine? 💖</h1>
+    <h1 id="question">Will you be my Valentine? 💖</h1>
 
     <button id="yesBtn">Yes 💘</button>
     <button id="noBtn">No 😢</button>
 
     <script>
-    let yesBtn = document.getElementById("yesBtn");
-    let noBtn = document.getElementById("noBtn");
+        let yesBtn = document.getElementById("yesBtn");
+        let noBtn = document.getElementById("noBtn");
+        let question = document.getElementById("question");
 
-    let yesSize = 1.2;
-    let noSize = 1.2;
+        let yesSize = 1.2;
+        let noSize = 1.2;
 
-    noBtn.addEventListener("click", function() {
-        // Make YES bigger
-        yesSize += 0.4;
-        yesBtn.style.fontSize = yesSize + "rem";
-
-        // Make NO smaller
-        noSize -= 0.1;
-        if (noSize > 0.5) {
+        function resetGame() {
+            question.innerText = "Will you be my Valentine? 💖";
+            yesBtn.innerText = "Yes 💘";
+            noBtn.innerText = "No 😢";
+            yesSize = 1.2;
+            noSize = 1.2;
+            yesBtn.style.fontSize = yesSize + "rem";
             noBtn.style.fontSize = noSize + "rem";
+            noBtn.style.position = "static";
         }
 
-        // Move NO button randomly
-        let randomX = Math.floor(Math.random() * window.innerWidth);
-        let randomY = Math.floor(Math.random() * window.innerHeight);
+        noBtn.addEventListener("click", function() {
 
-        noBtn.style.position = "absolute";
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
-    });
+            // 20% chance event
+            if (Math.random() < 0.2) {
+                question.innerText = "you dont love me 😭";
+                yesBtn.innerText = "Try Again";
+                noBtn.innerText = "Try Again";
 
-    yesBtn.addEventListener("click", function() {
-        document.body.innerHTML = "<h1>I love you my love 🥰💕🥰💕</h1>";
-        document.body.style.backgroundColor = "#ffccd5";
-    });
-</script>
+                yesBtn.onclick = resetGame;
+                noBtn.onclick = resetGame;
+                return;
+            }
 
+            // Make YES bigger
+            yesSize += 0.4;
+            yesBtn.style.fontSize = yesSize + "rem";
+
+            // Make NO smaller
+            noSize -= 0.1;
+            if (noSize > 0.5) {
+                noBtn.style.fontSize = noSize + "rem";
+            }
+
+            // Move NO randomly
+            let randomX = Math.random() * (window.innerWidth - 100);
+            let randomY = Math.random() * (window.innerHeight - 100);
+
+            noBtn.style.position = "absolute";
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        });
+
+        yesBtn.addEventListener("click", function() {
+            document.body.innerHTML = "<h1 style='margin-top:100px;color:#d63384;'>I love you my love 🥰💖🥰💖</h1>";
+            document.body.style.backgroundColor = "#ffccd5";
+        });
+
+        // Floating hearts generator
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.fontSize = (20 + Math.random() * 30) + "px";
+            heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
 
 </body>
 </html>
