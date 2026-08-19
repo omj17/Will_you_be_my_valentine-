@@ -96,79 +96,93 @@
     let yesClickCount = 0;
     let totalNoClicks = 0;
     let angryStage = 0;
+    let tryAgainMode = false;
 
     function resetGame() {
-        question.innerText = "Will you be my Valentine? 💖";
-        yesBtn.innerText = "Yes 💘";
-        noBtn.innerText = "No 😢";
-        yesSize = 1.2;
-        noSize = 1.2;
-        yesClickCount = 0;
-        totalNoClicks = 0;
-        angryStage = 0;
-        yesBtn.style.fontSize = yesSize + "rem";
-        noBtn.style.fontSize = noSize + "rem";
-        noBtn.style.position = "static";
+    question.innerText = "Will you be my Valentine? 💖";
+    yesBtn.innerText = "Yes 💘";
+    noBtn.innerText = "No 😢";
+
+    yesSize = 1.2;
+    noSize = 1.2;
+    yesClickCount = 0;
+    totalNoClicks = 0;
+    angryStage = 0;
+    tryAgainMode = false;
+
+    yesBtn.style.fontSize = yesSize + "rem";
+    noBtn.style.fontSize = noSize + "rem";
+    noBtn.style.position = "static";
     }
 
     yesBtn.addEventListener("click", function() {
 
-        yesClickCount++;
+    if (tryAgainMode) {
+        resetGame();
+        return;
+    }
 
-        if (yesClickCount === 1) {
-            question.innerText = "Do you really mean it? 🥺💖";
-            return;
-        }
+    yesClickCount++;
 
-        if (yesClickCount === 2) {
-            document.body.innerHTML = "<h1 style='margin-top:100px;color:#d63384;'>I love you my love 🥰💖🥰💖</h1>";
-            startHeartRain();
-        }
+    if (yesClickCount === 1) {
+        question.innerText = "Do you really mean it? 🥺💖";
+        return;
+    }
+
+    if (yesClickCount === 2) {
+        document.body.innerHTML = "<h1 style='margin-top:100px;color:#d63384;'>I love you my love 🥰💖🥰💖</h1>";
+        startHeartRain();
+    }
     });
 
     noBtn.addEventListener("click", function() {
 
-        totalNoClicks++;
+    if (tryAgainMode) {
+        resetGame();
+        return;
+    }
 
-        // After 10 total no clicks → angry progression
-        if (totalNoClicks >= 10) {
-            angryStage++;
+    totalNoClicks++;
 
-            if (angryStage === 1) {
-                question.innerText = "Will you be my Valentine? 😠";
-            } else if (angryStage === 2) {
-                question.innerText = "Will you be my Valentine? 😡";
-            } else if (angryStage >= 3) {
-                question.innerText = "Will you be my Valentine? 🤬";
-            }
+    // After 10 total no clicks → angry progression
+    if (totalNoClicks >= 3) {
+        angryStage++;
+
+        if (angryStage === 1) {
+            question.innerText = "Will you be my Valentine? 😠";
+        } else if (angryStage === 2) {
+            question.innerText = "Will you be my Valentine? 😡";
+        } else if (angryStage >= 3) {
+            question.innerText = "Will you be my Valentine? 🤬";
         }
+    }
 
-        // 20% emotional twist (only before angry stage)
-        if (totalNoClicks < 10 && Math.random() < 0.2) {
-            question.innerText = "you dont love me 😭";
-            yesBtn.innerText = "Try Again";
-            noBtn.innerText = "Try Again";
-            yesBtn.onclick = resetGame;
-            noBtn.onclick = resetGame;
-            return;
-        }
+    // 20% emotional twist
+    if (totalNoClicks < 10 && Math.random() < 0.2) {
+        question.innerText = "you dont love me 😭";
+        yesBtn.innerText = "Try Again";
+        noBtn.innerText = "Try Again";
 
-        yesSize += 0.4;
-        yesBtn.style.fontSize = yesSize + "rem";
+        tryAgainMode = true;
+        return;
+    }
 
-        noSize -= 0.1;
-        if (noSize > 0.5) {
-            noBtn.style.fontSize = noSize + "rem";
-        }
+    yesSize += 0.4;
+    yesBtn.style.fontSize = yesSize + "rem";
 
-        let randomX = Math.random() * (window.innerWidth - 100);
-        let randomY = Math.random() * (window.innerHeight - 100);
+    noSize -= 0.1;
 
-        noBtn.style.position = "absolute";
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
+    if (noSize > 0.5) {
+        noBtn.style.fontSize = noSize + "rem";
+    }
+
+    let randomX = Math.random() * (window.innerWidth - 100);
+    let randomY = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
     });
-
     function createFloatingHeart() {
         const heart = document.createElement("div");
         heart.classList.add("heart");
