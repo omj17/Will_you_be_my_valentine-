@@ -39,13 +39,14 @@ const versions = [
 let yesBtn = document.getElementById("yesBtn");
 let noBtn = document.getElementById("noBtn");
 let question = document.getElementById("question");
+let toggleBtn = document.getElementById("toggleBtn");
+let versionLabel = document.getElementById("versionLabel");
 
 let yesSize = 1.2;
 let noSize = 1.2;
 let yesClickCount = 0;
 let totalNoClicks = 0;
 let angryStage = 0;
-
 let tryAgainMode = false;
 
 
@@ -54,10 +55,13 @@ let tryAgainMode = false;
 // ==============================
 
 function resetGame() {
-    question.innerText = "Will you be my Valentine? 💖";
 
-    yesBtn.innerText = "Yes 💘";
-    noBtn.innerText = "No 😢";
+    let version = versions[currentVersion];
+
+    question.innerText = version.question;
+
+    yesBtn.innerText = version.yes;
+    noBtn.innerText = version.no;
 
     yesSize = 1.2;
     noSize = 1.2;
@@ -147,10 +151,12 @@ noBtn.addEventListener("click", function() {
 
     if (totalNoClicks < 10 && Math.random() < 0.2) {
 
-        question.innerText = "you dont love me 😭";
+        let version = versions[currentVersion];
 
-        yesBtn.innerText = "Try Again";
-        noBtn.innerText = "Try Again";
+        question.innerText = version.sadMessage;
+
+        yesBtn.innerText = version.tryAgain;
+        noBtn.innerText = version.tryAgain;
 
         tryAgainMode = true;
 
@@ -253,3 +259,31 @@ function startHeartRain() {
 
     }, 150);
 }
+
+// ==============================
+// CHANGE VERSION
+// ==============================
+
+function changeVersion() {
+
+    currentVersion++;
+
+    // Go back to Version 1 after Version 2
+    if (currentVersion >= versions.length) {
+        currentVersion = 0;
+    }
+
+    let version = versions[currentVersion];
+
+    versionLabel.innerText = version.name;
+
+    question.innerText = version.question;
+
+    yesBtn.innerText = version.yes;
+
+    noBtn.innerText = version.no;
+
+    // Reset the game when changing versions
+    resetGame();
+}
+toggleBtn.addEventListener("click", changeVersion);
