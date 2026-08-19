@@ -86,3 +86,38 @@ button {
         opacity: 0;
     }
 }
+/* ==============================
+   VERSION TOGGLE
+   ============================== */
+
+#versionToggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#versionLabel {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#toggleBtn {
+    padding: 8px 15px;
+    margin: 0;
+
+    font-size: 0.9rem;
+
+    background-color: white;
+    color: #d63384;
+
+    border: 2px solid #d63384;
+    border-radius: 20px;
+}
+
+#toggleBtn:hover {
+    transform: scale(1.05);
+}
