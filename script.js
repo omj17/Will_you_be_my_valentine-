@@ -1,3 +1,41 @@
+// ==============================
+// VALENTINE VERSIONS
+// ==============================
+
+let currentVersion = 0;
+
+const versions = [
+
+    {
+        name: "💖 Romantic",
+
+        question: "Will you be my Valentine? 💖",
+
+        yes: "Yes 💘",
+
+        no: "No 😢",
+
+        tryAgain: "Try Again",
+
+        sadMessage: "you dont love me 😭"
+    },
+
+    {
+        name: "😈 Chaotic",
+
+        question: "You WILL be my Valentine. 😈",
+
+        yes: "YES!!! 😍",
+
+        no: "NO! 😭",
+
+        tryAgain: "Try Again?🤔",
+
+        sadMessage: "WOW... YOU REALLY SAID NO?! 😭"
+    }
+
+];
+
 let yesBtn = document.getElementById("yesBtn");
 let noBtn = document.getElementById("noBtn");
 let question = document.getElementById("question");
