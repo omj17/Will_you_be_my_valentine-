@@ -32,6 +32,20 @@ const versions = [
         tryAgain: "Try Again?🤔",
 
         sadMessage: "WOW... YOU REALLY SAID NO?! 😭"
+    },
+    
+    {
+    name: "🐸 Silly",
+
+    question: "Will you be my Valentine? 🐸💖",
+
+    yes: "YESSSS!!! 🥰",
+
+    no: "Nope 🐸",
+
+    tryAgain: "Try Again!!!",
+
+    sadMessage: "THE FROG IS DISAPPOINTED 😭🐸"
     }
 
 ];
