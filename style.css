@@ -121,3 +121,81 @@ button {
 #toggleBtn:hover {
     transform: scale(1.05);
 }
+/* ==============================
+   VERSION THEMES
+   ============================== */
+
+/* Romantic Theme */
+.theme-romantic {
+    background-color: #ffe6f0;
+}
+
+.theme-romantic h1 {
+    color: #d63384;
+}
+
+.theme-romantic #yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+.theme-romantic #noBtn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.theme-romantic #toggleBtn {
+    color: #d63384;
+    border-color: #d63384;
+}
+
+
+/* Chaotic Theme */
+.theme-chaotic {
+    background-color: #1a1a1a;
+}
+
+.theme-chaotic h1 {
+    color: #ff3333;
+}
+
+.theme-chaotic #yesBtn {
+    background-color: #ff1744;
+    color: white;
+}
+
+.theme-chaotic #noBtn {
+    background-color: #333333;
+    color: white;
+}
+
+.theme-chaotic #toggleBtn {
+    background-color: #333333;
+    color: #ff3333;
+    border-color: #ff3333;
+}
+
+
+/* Silly Theme */
+.theme-silly {
+    background-color: #dfffd6;
+}
+
+.theme-silly h1 {
+    color: #4caf50;
+}
+
+.theme-silly #yesBtn {
+    background-color: #66bb6a;
+    color: white;
+}
+
+.theme-silly #noBtn {
+    background-color: #8d6e63;
+    color: white;
+}
+
+.theme-silly #toggleBtn {
+    color: #4caf50;
+    border-color: #4caf50;
+}
